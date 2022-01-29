@@ -1,0 +1,40 @@
+#!/usr/bin/python3
+
+import sys
+
+
+def factorize(num):
+    divisor = 2
+    while(True):
+        other_num = 0
+
+        if num % divisor == 0:
+            other_num = num / divisor
+            print("{}={}*{}".format(num, int(other_num), int(divisor)))
+            break
+        else:
+            divisor += 1
+
+
+def main(file_name):
+    try:
+        fd = open(file_name, 'r')
+        string_nums = fd.readlines()
+        int_nums = [int(str_num) for str_num in string_nums]
+        fd.close()
+
+        for num in int_nums:
+            factorize(num)
+
+    except FileNotFoundError as e:
+        print(e)
+        print("Usage: factors <file>")
+
+
+if __name__ == '__main__':
+
+    try:
+        file = sys.argv[1]
+        main(file)
+    except IndexError:
+        print("Usage: factors <file>")
